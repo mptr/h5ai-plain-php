@@ -24,30 +24,9 @@ RUN { \
 RUN docker-php-ext-install mysqli
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# write nginx conf
-RUN echo 'server { \
-    root    /var/www/html; \
-    include /etc/nginx/default.d/*.conf; \
-    index app.php index.php index.html index.htm /_h5ai/public/index.php; \
-    client_max_body_size 30m; \
-    error_page 404 /404.php; \
-    location / { \
-        try_files $uri $uri/ $uri.html $uri.php$is_args$query_string; \
-    } \
-    location ~ [^/]\.php(/|$) { \
-        try_files $uri =404; \
-        fastcgi_split_path_info ^(.+?\.php)(/.*)$; \
-        fastcgi_param HTTP_PROXY ""; \
-        fastcgi_pass 127.0.0.1:9000; \
-        fastcgi_index index.php; \
-        include fastcgi.conf; \
-    } \
-}' > /etc/nginx/sites-enabled/default
+COPY nginx.conf > /etc/nginx/sites-enabled/default
 
-# write entrypoint.sh
-RUN echo '#!/usr/bin/env bash \
-service nginx start \
-php-fpm' > /etc/entrypoint.sh
+COPY entrypoint.sh /etc/entrypoint.sh
 
 WORKDIR /var/www/html
 
