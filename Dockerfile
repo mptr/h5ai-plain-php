@@ -1,8 +1,8 @@
 FROM php:8-fpm
 
 RUN apt-get update -y \
-    && apt-get install -y nginx zlib1g-dev freetype libpng-dev libjpeg-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && apt-get install -y nginx zlib1g-dev libpng-dev libjpeg-dev \
+    && docker-php-ext-configure gd --with-jpeg \
     && docker-php-ext-install gd exif
 
 # PHP_CPPFLAGS are used by the docker-php-ext-* scripts
