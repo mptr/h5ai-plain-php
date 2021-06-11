@@ -1,7 +1,9 @@
 FROM php:8-fpm
 
 RUN apt-get update -y \
-    && apt-get install -y nginx
+    && apt-get install -y nginx zip ffmpeg graphicsmagick freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd exif
 
 # PHP_CPPFLAGS are used by the docker-php-ext-* scripts
 ENV PHP_CPPFLAGS="$PHP_CPPFLAGS -std=c++11"
