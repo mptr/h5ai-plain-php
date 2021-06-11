@@ -24,7 +24,7 @@ RUN { \
 RUN docker-php-ext-install mysqli
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-COPY nginx.conf /etc/nginx/sites-enabled/default
+COPY nginx-site.conf /etc/nginx/sites-enabled/default
 
 COPY entrypoint.sh /etc/entrypoint.sh
 
