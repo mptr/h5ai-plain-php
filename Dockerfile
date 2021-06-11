@@ -1,7 +1,7 @@
 FROM php:8-fpm
 
 RUN apt-get update -y \
-    && apt-get install -y nginx zlib1g-dev libpng-dev libjpeg-dev \
+    && apt-get install -y nginx zlib1g-dev freetype libpng-dev libjpeg-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd exif
 
