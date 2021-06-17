@@ -1,7 +1,7 @@
 FROM php:8-fpm
 
 RUN apt-get update -y \
-    && apt-get install -y nginx zlib1g-dev libpng-dev libjpeg-dev \
+    && apt-get install -y nginx ssl-cert zlib1g-dev libpng-dev libjpeg-dev \
     && docker-php-ext-configure gd --with-jpeg \
     && docker-php-ext-install gd exif
 
@@ -32,6 +32,6 @@ COPY entrypoint.sh /etc/entrypoint.sh
 
 WORKDIR /var/www/html
 
-EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT ["sh", "/etc/entrypoint.sh"]
